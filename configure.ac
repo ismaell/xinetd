@@ -31,6 +31,9 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
 PKG_PROG_PKG_CONFIG([0.20])
+AS_IF([test -z "$PKG_CONFIG"],
+  [AC_MSG_WARN([pkg-config is needed for auto-configuration of dependencies])
+   PKG_CONFIG=false])
 AC_CHECK_LIB([m], [log10], [
     LIBM_LIBS="-lm"
 ], [
