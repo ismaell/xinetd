@@ -111,7 +111,7 @@ sbin_PROGRAMS = xinetd
 xinetd_CFLAGS = \
 	$(HARDEN_CFLAGS) \
 	$(SELINUX_CFLAGS) \
-	$(TIRPC_CFLAGS)
+	$(RPC_CFLAGS)
 xinetd_SOURCES = \
 	src/access.c \
 	src/access.h \
@@ -205,7 +205,7 @@ xinetd_LDADD = \
 	libxlog.la \
 	$(WRAP_LIBS) \
 	$(SELINUX_LIBS) \
-	$(TIRPC_LIBS)
+	$(RPC_LIBS)
 
 distclean-local:
 	rm -rf *.cache *~
