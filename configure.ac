@@ -134,11 +134,16 @@ AS_IF([test x"$with_rpc" != "xno"], [
         have_rpc=maybe
         save_CPPFLAGS=$CPPFLAGS
         CPPFLAGS="$CPPFLAGS $RPC_CFLAGS"
-        AC_CHECK_HEADERS([rpc/rpc.h],, [have_rpc=no])
+        dnl TODO: remove 4th arg to AC_CHECK_HEADERS when we AC_PREREQ 2.70+.
+        dnl It is required with autoconf < 2.70 (the feature has been available
+        dnl since 2.60 at least), to enforce the modern compiler-based checking
+        dnl (otherwise it just prints a warning, but uses the result of the
+        dnl preprocessor-based test instead).
+        AC_CHECK_HEADERS([rpc/rpc.h],, [have_rpc=no], [AC_INCLUDES_DEFAULT])
         dnl FIXME do a linking test
         AS_IF([test x"$have_rpc" = xmaybe], [
-            dnl XXX is this header really optional?
-            AC_CHECK_HEADERS([rpc/rpcent.h])
+            dnl TODO check if the following header is really optional
+            AC_CHECK_HEADERS([rpc/rpcent.h],,, [AC_INCLUDES_DEFAULT])
             have_rpc=yes
         ])
         CPPFLAGS=$save_CPPFLAGS
